@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.text.Spanned
 import android.text.SpannedString
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +29,38 @@ import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class EpgFragment : ProgramGuideFragment<EpgFragment.SimpleProgram>() {
+
+
+    override fun onDown(p0: MotionEvent?): Boolean {
+//        TODO("Not yet implemented")
+
+        return false
+    }
+
+    override fun onShowPress(p0: MotionEvent?) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
+//        TODO("Not yet implemented")
+
+        return false
+    }
+
+    override fun onLongPress(p0: MotionEvent?) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onFling(m0: MotionEvent?, m1: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+//        super.onFling(m0, m1, velocityX, velocityY)
+
+        //TODO: https://developer.android.com/training/gestures/scroll
+
+        Log.d(TAG,"onFling velocity x: $velocityX")
+        Log.d(TAG," onFling velocity y: $velocityY")
+
+        return false
+    }
 
     // Feel free to change configuration values like this:
     //
@@ -116,7 +149,29 @@ class EpgFragment : ProgramGuideFragment<EpgFragment.SimpleProgram>() {
                 SimpleChannel("tv-nova", SpannedString("TV nova"), "https://upload.wikimedia.org/wikipedia/commons/2/2f/TV_Nova_logo_2017.png"),
                 SimpleChannel("tv-5-monde", SpannedString("TV5MONDE"), "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/TV5MONDE_logo.png/320px-TV5MONDE_logo.png"),
                 SimpleChannel("orf-2", SpannedString("ORF 2"), "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/ORF2_logo_n.svg/320px-ORF2_logo_n.svg.png"),
-                SimpleChannel("tvp-1", SpannedString("TVP 1"), "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tvp1.png")
+                SimpleChannel("tvp-1", SpannedString("TVP 1"), "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tvp1.png"),
+
+                SimpleChannel("npo-10", SpannedString("NPO 10"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-11", SpannedString("NPO 11"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-12", SpannedString("NPO 12"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-13", SpannedString("NPO 13"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-14", SpannedString("NPO 14"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-15", SpannedString("NPO 15"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-16", SpannedString("NPO 16"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-17", SpannedString("NPO 17"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-18", SpannedString("NPO 18"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-19", SpannedString("NPO 19"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+
+                SimpleChannel("npo-20", SpannedString("NPO 20"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-21", SpannedString("NPO 21"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-22", SpannedString("NPO 22"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-23", SpannedString("NPO 23"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-24", SpannedString("NPO 24"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-25", SpannedString("NPO 25"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-26", SpannedString("NPO 26"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-27", SpannedString("NPO 27"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("npo-28", SpannedString("NPO 28"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("npo-29", SpannedString("NPO 29"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
             )
 
             val showNames = listOf("News", "Sherlock Holmes", "It's Always Sunny In Philadelphia", "Second World War Documentary", "World Cup Final Replay", "Game of Thrones",

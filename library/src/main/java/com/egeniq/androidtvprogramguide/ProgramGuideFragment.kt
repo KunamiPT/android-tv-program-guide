@@ -22,9 +22,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.ViewAnimator
@@ -33,6 +31,7 @@ import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.leanback.widget.BaseGridView
 import androidx.leanback.widget.setFocusOutAllowed
@@ -60,7 +59,8 @@ import java.util.concurrent.TimeUnit
 
 abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listener,
     ProgramGuideGridView.ChildFocusListener,
-    ProgramGuideGridView.ScheduleSelectionListener<T>, ProgramGuideHolder<T> {
+    ProgramGuideGridView.ScheduleSelectionListener<T>, ProgramGuideHolder<T>,
+    GestureDetector.OnGestureListener {
 
     companion object {
         private val HOUR_IN_MILLIS = TimeUnit.HOURS.toMillis(1)
@@ -342,6 +342,28 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
     }
 
 
+    private val mHandler = Handler()
+    private val FINGER_STOP_THRESHOLD = 500L
+    var lastX = 0f
+    var lastY = 0f
+    var gDetector: GestureDetectorCompat? = null
+
+//    override fun onFling(p0: MotionEvent?, p1: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+//
+//        Log.d(TAG,"onFling velocity x: $velocityX")
+//        Log.d(TAG," onFling velocity y: $velocityY")
+//
+//        return false
+//    }
+
+    override fun onScroll(p0: MotionEvent?, motionEvent: MotionEvent?, dX: Float, dY: Float): Boolean {
+
+//        Log.d(TAG,"GestureDetectorCompat x: $dX")
+//        Log.d(TAG," GestureDetectorCompat y: $dY")
+
+        return false
+    }
+
     /**
      * Sets up all the components to be used by the fragment.
      */
@@ -358,11 +380,76 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
             (displayWidth - resources.getDimensionPixelSize(R.dimen.programguide_channel_column_width))
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+                Log.d(TAG, "onHorizontalScrolled $dx")
+//                Log.d(TAG, "onVerticalScrolled $dy")
+
                 onHorizontalScrolled(dx)
+//                onVerticalScrolled(dy) // It's an horizontal recycler, doesn't scroll on y
             }
         }
         val timeRow = view.findViewById<RecyclerView>(R.id.programguide_time_row)!!
         timeRow.addOnScrollListener(onScrollListener)
+
+        // TK: init gesture detector
+        gDetector = GestureDetectorCompat(context, this)
+
+        //TK: init touch listener for motion events
+        timeRow.setOnTouchListener(object: View.OnTouchListener {
+
+            override fun onTouch(v: View?, m: MotionEvent?): Boolean {
+
+                gDetector?.onTouchEvent(m)
+
+                m?.let { motionEvent ->
+
+                    when(motionEvent.action) {
+
+                        MotionEvent.ACTION_DOWN -> {
+
+                            lastX = motionEvent.x
+                            lastY = motionEvent.y
+                        }
+
+                        MotionEvent.ACTION_MOVE -> {
+                            Log.d(TAG,"x: ${motionEvent?.x}")
+                            Log.d(TAG,"y: ${motionEvent?.y}")
+
+                            var dX = lastX - motionEvent.x
+                            var dY = lastY - motionEvent.y
+
+//                          if(lastX != 0f) onHorizontalScrolled(dX.toInt())
+                            if(lastY != 0f) onVerticalScrolled(dY.toInt())
+
+                            lastX = motionEvent.x
+                            lastY = motionEvent.y
+
+                            // Threshold
+                            mHandler.removeCallbacksAndMessages(null)
+                            if (motionEvent.getActionMasked() !== MotionEvent.ACTION_UP) {
+                                mHandler.postDelayed(Runnable {
+                                    lastX = 0f
+                                    lastY = 0f
+                                }, FINGER_STOP_THRESHOLD)
+                            }
+                        }
+                    }
+                }
+
+                return false // return a Boolean value indicating to the Android runtime system whether or not the event should be passed on to other event listeners registered on the same view or discarded.
+            }
+        })
+
+
+
+//        timeRow.onTouchEvent(event: MotionEvent {
+//
+//
+//        })
+
+//        https://stackoverflow.com/questions/37456483/gesturedetectorcompact-not-working
+//        here
+
         if (!created) {
             viewportMillis = gridWidth * HOUR_IN_MILLIS / widthPerHour
             timelineStartMillis = ProgramGuideUtil.floorTime(
@@ -480,6 +567,16 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
                 grid.getChildAt(i).findViewById<View>(R.id.row).scrollBy(dx, 0)
                 ++i
             }
+        }
+    }
+
+    private fun onVerticalScrolled(dy: Int) {
+        if (dy == 0) {
+            return
+        }
+
+        programGuideGrid.let { grid ->
+            grid.scrollBy(0, dy)
         }
     }
 

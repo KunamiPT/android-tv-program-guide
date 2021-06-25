@@ -150,11 +150,11 @@ internal class ProgramGuideRowAdapter(
             if (imageUrl == null) {
                 channelLogoView.visibility = View.GONE
             } else {
-                Glide.with(channelLogoView)
-                    .load(imageUrl)
-                    .fitCenter()
-                    .into(channelLogoView)
-                channelLogoView.visibility = View.VISIBLE
+//                Glide.with(channelLogoView)
+//                    .load(imageUrl)
+//                    .fitCenter()
+//                    .into(channelLogoView)
+//                channelLogoView.visibility = View.VISIBLE
             }
             channelNameView.text = channel.name
             channelNameView.visibility = View.VISIBLE
