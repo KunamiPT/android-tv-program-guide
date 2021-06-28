@@ -23,18 +23,6 @@
     android:background="@color/programguide_header_background"
     tools:ignore="Overdraw">
 
-    <Button
-        android:id="@+id/programguide_jump_to_live"
-        style="@style/ProgramGuide.Button.JumpToLive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/programguide_filter_spacing"
-        android:text="@string/programguide_button_jump_to_live"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/programguide_time_row"
-        app:layout_constraintStart_toEndOf="@id/programguide_time_of_day_filter"
-        app:layout_constraintTop_toTopOf="@id/programguide_top_margin" />
-
     <Space
         android:id="@+id/programguide_menu_visible_margin"
         android:layout_width="0dp"
@@ -56,57 +44,67 @@
         app:layout_constraintBottom_toTopOf="@id/background"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/bottom_detail"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/programguide_bottom_detail_height"
-        android:background="@color/programguide_footer_background"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/programguide_descritpion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:visibility="gone"
+        tools:visibility="visible">
 
-    <ImageView
-        android:id="@+id/programguide_detail_image"
-        style="@style/ProgramGuide.Image.Detail"
-        android:layout_marginStart="@dimen/programguide_page_left_padding"
-        android:contentDescription="@string/programguide_content_description_large_thumbnail"
-        android:background="@drawable/programguide_tile_placeholder"
-        android:src="@drawable/programguide_icon_placeholder"
-        app:layout_constraintBottom_toBottomOf="@id/bottom_detail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottom_detail" />
+        <View
+            android:id="@+id/bottom_detail"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/programguide_bottom_detail_height"
+            android:background="@color/programguide_footer_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/programguide_detail_title"
-        style="@style/ProgramGuide.Text.Detail.Title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/programguide_detail_image"
-        app:layout_constraintTop_toTopOf="@id/programguide_detail_image"
-        tools:text="NPO Politiek" />
+        <ImageView
+            android:id="@+id/programguide_detail_image"
+            style="@style/ProgramGuide.Image.Detail"
+            android:layout_marginStart="@dimen/programguide_page_left_padding"
+            android:contentDescription="@string/programguide_content_description_large_thumbnail"
+            android:background="@drawable/programguide_tile_placeholder"
+            android:src="@drawable/programguide_icon_placeholder"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottom_detail" />
 
-    <TextView
-        android:id="@+id/programguide_detail_metadata"
-        style="@style/ProgramGuide.Text.Detail.Metadata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        app:layout_constraintStart_toStartOf="@id/programguide_detail_title"
-        app:layout_constraintTop_toBottomOf="@id/programguide_detail_title"
-        tools:text="EenVandaag • Wo 30 jan 20:00 • AVROTROS" />
+        <TextView
+            android:id="@+id/programguide_detail_title"
+            style="@style/ProgramGuide.Text.Detail.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/programguide_detail_image"
+            app:layout_constraintTop_toTopOf="@id/programguide_detail_image"
+            tools:text="NPO Politiek" />
 
-    <TextView
-        android:id="@+id/programguide_detail_description"
-        style="@style/ProgramGuide.Text.Detail.Description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/programguide_detail_title"
-        app:layout_constraintTop_toBottomOf="@id/programguide_detail_metadata"
-        tools:text="This is the description of the item.\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6" />
+        <TextView
+            android:id="@+id/programguide_detail_metadata"
+            style="@style/ProgramGuide.Text.Detail.Metadata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintStart_toStartOf="@id/programguide_detail_title"
+            app:layout_constraintTop_toBottomOf="@id/programguide_detail_title"
+            tools:text="EenVandaag • Wo 30 jan 20:00 • AVROTROS" />
+
+        <TextView
+            android:id="@+id/programguide_detail_description"
+            style="@style/ProgramGuide.Text.Detail.Description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/programguide_detail_title"
+            app:layout_constraintTop_toBottomOf="@id/programguide_detail_metadata"
+            tools:text="This is the description of the item.\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/programguide_top_margin"
@@ -121,7 +119,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
         android:background="@color/programguide_content_background"
-        app:layout_constraintBottom_toTopOf="@id/bottom_detail"
+        app:layout_constraintBottom_toTopOf="@id/programguide_descritpion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/programguide_time_row" />
@@ -182,7 +180,7 @@
         android:id="@+id/programguide_time_row"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="0dp"
         android:alpha="0"
         android:fadingEdgeLength="20dp"
         android:requiresFadingEdge="horizontal"
@@ -192,25 +190,42 @@
         tools:alpha="1"
         tools:listitem="@layout/programguide_item_time" />
 
-    <include
-        android:id="@+id/programguide_day_filter"
-        layout="@layout/programguide_item_filter"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/programguide_options"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/programguide_page_left_padding"
         app:layout_constraintBottom_toTopOf="@id/programguide_time_row"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/programguide_top_margin" />
+        app:layout_constraintTop_toTopOf="@id/programguide_top_margin"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-    <include
-        android:id="@+id/programguide_time_of_day_filter"
-        layout="@layout/programguide_item_filter"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/programguide_filter_spacing"
-        app:layout_constraintBottom_toTopOf="@id/programguide_time_row"
-        app:layout_constraintStart_toEndOf="@id/programguide_day_filter"
-        app:layout_constraintTop_toTopOf="@id/programguide_top_margin" />
+        <include
+            android:id="@+id/programguide_day_filter"
+            layout="@layout/programguide_item_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/programguide_page_left_padding"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/programguide_time_of_day_filter"
+            layout="@layout/programguide_item_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/programguide_filter_spacing"
+            app:layout_constraintStart_toEndOf="@id/programguide_day_filter" />
+
+        <Button
+            android:id="@+id/programguide_jump_to_live"
+            style="@style/ProgramGuide.Button.JumpToLive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/programguide_filter_spacing"
+            android:text="@string/programguide_button_jump_to_live"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/programguide_time_of_day_filter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/programguide_current_date"

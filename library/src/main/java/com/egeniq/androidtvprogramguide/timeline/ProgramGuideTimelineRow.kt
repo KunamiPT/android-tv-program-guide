@@ -21,6 +21,7 @@ import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.view.MotionEvent
 import androidx.annotation.RequiresApi
 import kotlin.math.abs
 
@@ -73,7 +74,6 @@ class ProgramGuideTimelineRow @JvmOverloads constructor(context: Context, attrs:
     override fun getRightFadingEdgeStrength(): Float {
         return 0f
     }
-
 
     // State saving part
 

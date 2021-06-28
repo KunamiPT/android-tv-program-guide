@@ -18,6 +18,7 @@ package com.egeniq.androidtvprogramguide
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -348,18 +349,51 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
     var lastY = 0f
     var gDetector: GestureDetectorCompat? = null
 
-//    override fun onFling(p0: MotionEvent?, p1: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+    override fun onDown(p0: MotionEvent?): Boolean {
+//        TODO("Not yet implemented")
+
+        return false
+    }
+
+    override fun onShowPress(p0: MotionEvent?) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onSingleTapUp(motionEvent: MotionEvent?): Boolean {
+//        TODO("Not yet implemented")
+//        val coordX = motionEvent?.x
+
+//        val timeRow = view?.findViewById<RecyclerView>(R.id.programguide_time_row)!!
+////        timeRow.onInterceptTouchEvent(motionEvent)
 //
-//        Log.d(TAG,"onFling velocity x: $velocityX")
-//        Log.d(TAG," onFling velocity y: $velocityY")
-//
-//        return false
-//    }
+//        timeRow.requestDisallowInterceptTouchEvent(true)
+//        programGuideGrid.dispatchTouchEvent(motionEvent)
+////        programGuideGrid.onTouchEvent(motionEvent)
+
+        return false
+    }
+
+    override fun onLongPress(p0: MotionEvent?) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onFling(p0: MotionEvent?, p1: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+
+        Log.d(TAG,"onFling velocity x: $velocityX")
+        Log.d(TAG," onFling velocity y: $velocityY")
+
+        onGridFling(-velocityX.toInt(), -velocityY.toInt())
+
+        return false
+    }
 
     override fun onScroll(p0: MotionEvent?, motionEvent: MotionEvent?, dX: Float, dY: Float): Boolean {
 
-//        Log.d(TAG,"GestureDetectorCompat x: $dX")
-//        Log.d(TAG," GestureDetectorCompat y: $dY")
+        Log.d(TAG,"onScroll x: $dX")
+        Log.d(TAG," onScroll y: $dY")
+
+//        onHorizontalScrolled(dX.toInt())
+        onVerticalScrolled(dY.toInt())
 
         return false
     }
@@ -371,13 +405,12 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
     @SuppressLint("RestrictedApi")
     private fun setupComponents(view: View) {
         selectionRow = resources.getInteger(R.integer.programguide_selection_row)
-        rowHeight =
-            resources.getDimensionPixelSize(R.dimen.programguide_program_row_height_with_empty_space)
+        rowHeight = resources.getDimensionPixelSize(R.dimen.programguide_program_row_height_with_empty_space)
         widthPerHour = resources.getDimensionPixelSize(R.dimen.programguide_table_width_per_hour)
         ProgramGuideUtil.setWidthPerHour(widthPerHour)
         val displayWidth = Resources.getSystem().displayMetrics.widthPixels
-        gridWidth =
-            (displayWidth - resources.getDimensionPixelSize(R.dimen.programguide_channel_column_width))
+        gridWidth = (displayWidth - resources.getDimensionPixelSize(R.dimen.programguide_channel_column_width))
+
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
@@ -390,51 +423,81 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
         }
         val timeRow = view.findViewById<RecyclerView>(R.id.programguide_time_row)!!
         timeRow.addOnScrollListener(onScrollListener)
+//        timeRow.isClickable = false //TODO: TK
 
         // TK: init gesture detector
         gDetector = GestureDetectorCompat(context, this)
 
         //TK: init touch listener for motion events
-        timeRow.setOnTouchListener(object: View.OnTouchListener {
+        timeRow?.setOnTouchListener(object: View.OnTouchListener {
 
             override fun onTouch(v: View?, m: MotionEvent?): Boolean {
 
-                gDetector?.onTouchEvent(m)
-
                 m?.let { motionEvent ->
 
-                    when(motionEvent.action) {
+                    val motionEventTemp = MotionEvent.obtain(m)
+//                    val superMatrix = Matrix()
+//                    superMatrix.invert(programGuideGrid.matrix)
+//                    motionEventTemp.transform(superMatrix)
+//                    motionEventTemp.setLocation(m.x, m.y - 100)
 
-                        MotionEvent.ACTION_DOWN -> {
+//                    val difX = timeRow.left - programGuideGrid.left
+//                    val scaleX = programGuideGrid.width.toFloat() / timeRow.width.toFloat()
+//                    val scaleY = programGuideGrid.height.toFloat() / timeRow.height.toFloat()
+//                    motionEventTemp.setLocation(difX + motionEventTemp.x * scaleX, motionEventTemp.y * scaleY)
 
-                            lastX = motionEvent.x
-                            lastY = motionEvent.y
-                        }
+                    val fromPoint = Point(m.x.toInt(), m.y.toInt())
+                    val fromCoord = IntArray(2)
+                    val toCoord = IntArray(2)
+                    timeRow.getLocationOnScreen(fromCoord)
+                    programGuideGrid.getLocationOnScreen(toCoord)
+                    motionEventTemp.setLocation((fromCoord[0] - toCoord[0] + fromPoint.x).toFloat(), (fromCoord[1] - toCoord[1] + fromPoint.y).toFloat())
 
-                        MotionEvent.ACTION_MOVE -> {
-                            Log.d(TAG,"x: ${motionEvent?.x}")
-                            Log.d(TAG,"y: ${motionEvent?.y}")
+//                    return Point(
+//                        fromCoord[0] - toCoord[0] + fromPoint.x,
+//                        fromCoord[1] - toCoord[1] + fromPoint.y
+//                    )
 
-                            var dX = lastX - motionEvent.x
-                            var dY = lastY - motionEvent.y
-
-//                          if(lastX != 0f) onHorizontalScrolled(dX.toInt())
-                            if(lastY != 0f) onVerticalScrolled(dY.toInt())
-
-                            lastX = motionEvent.x
-                            lastY = motionEvent.y
-
-                            // Threshold
-                            mHandler.removeCallbacksAndMessages(null)
-                            if (motionEvent.getActionMasked() !== MotionEvent.ACTION_UP) {
-                                mHandler.postDelayed(Runnable {
-                                    lastX = 0f
-                                    lastY = 0f
-                                }, FINGER_STOP_THRESHOLD)
-                            }
-                        }
-                    }
+                    programGuideGrid.dispatchTouchEvent(motionEventTemp)
                 }
+
+//                return
+                gDetector?.onTouchEvent(m) ?: false
+
+//                m?.let { motionEvent ->
+//
+//                    when(motionEvent.action) {
+//
+//                        MotionEvent.ACTION_DOWN -> {
+//
+//                            lastX = motionEvent.x
+//                            lastY = motionEvent.y
+//                        }
+//
+//                        MotionEvent.ACTION_MOVE -> {
+////                            Log.d(TAG,"x: ${motionEvent?.x}")
+////                            Log.d(TAG,"y: ${motionEvent?.y}")
+////
+////                            var dX = lastX - motionEvent.x
+////                            var dY = lastY - motionEvent.y
+////
+//////                          if(lastX != 0f) onHorizontalScrolled(dX.toInt())
+////                            if(lastY != 0f) onVerticalScrolled(dY.toInt())
+////
+////                            lastX = motionEvent.x
+////                            lastY = motionEvent.y
+////
+////                            // Threshold
+////                            mHandler.removeCallbacksAndMessages(null)
+////                            if (motionEvent.getActionMasked() !== MotionEvent.ACTION_UP) {
+////                                mHandler.postDelayed(Runnable {
+////                                    lastX = 0f
+////                                    lastY = 0f
+////                                }, FINGER_STOP_THRESHOLD)
+////                            }
+//                        }
+//                    }
+//                }
 
                 return false // return a Boolean value indicating to the Android runtime system whether or not the event should be passed on to other event listeners registered on the same view or discarded.
             }
@@ -577,6 +640,16 @@ abstract class ProgramGuideFragment<T> : Fragment(), ProgramGuideManager.Listene
 
         programGuideGrid.let { grid ->
             grid.scrollBy(0, dy)
+        }
+    }
+
+    private fun onGridFling(velocityX: Int, velocityY: Int) {
+        if (velocityX == 0 && velocityY == 0) {
+            return
+        }
+
+        programGuideGrid.let { grid ->
+            grid.fling(velocityX, velocityY)
         }
     }
 

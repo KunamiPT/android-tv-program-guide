@@ -30,37 +30,16 @@ import kotlin.random.Random
 
 class EpgFragment : ProgramGuideFragment<EpgFragment.SimpleProgram>() {
 
-
-    override fun onDown(p0: MotionEvent?): Boolean {
-//        TODO("Not yet implemented")
-
-        return false
-    }
-
-    override fun onShowPress(p0: MotionEvent?) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
-//        TODO("Not yet implemented")
-
-        return false
-    }
-
-    override fun onLongPress(p0: MotionEvent?) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun onFling(m0: MotionEvent?, m1: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-//        super.onFling(m0, m1, velocityX, velocityY)
-
-        //TODO: https://developer.android.com/training/gestures/scroll
-
-        Log.d(TAG,"onFling velocity x: $velocityX")
-        Log.d(TAG," onFling velocity y: $velocityY")
-
-        return false
-    }
+//    override fun onFling(m0: MotionEvent?, m1: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+////        super.onFling(m0, m1, velocityX, velocityY)
+//
+//        //TODO: https://developer.android.com/training/gestures/scroll
+//
+//        Log.d(TAG,"onFling velocity x: $velocityX")
+//        Log.d(TAG," onFling velocity y: $velocityY")
+//
+//        return false
+//    }
 
     // Feel free to change configuration values like this:
     //
@@ -141,37 +120,48 @@ class EpgFragment : ProgramGuideFragment<EpgFragment.SimpleProgram>() {
 
         Single.fromCallable {
             val channels = listOf(
-                SimpleChannel("npo-1", SpannedString("NPO 1"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-2", SpannedString("NPO 2"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("bbc-news", SpannedString("BBC NEWS"), "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/200px-BBC_News_2019.svg.png"),
-                SimpleChannel("zdf", SpannedString("ZDF"), "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/ZDF_logo.svg/200px-ZDF_logo.svg.png"),
-                SimpleChannel("jednotka", SpannedString("Jednotka"), "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Jednotka.svg/255px-Jednotka.svg.png"),
-                SimpleChannel("tv-nova", SpannedString("TV nova"), "https://upload.wikimedia.org/wikipedia/commons/2/2f/TV_Nova_logo_2017.png"),
-                SimpleChannel("tv-5-monde", SpannedString("TV5MONDE"), "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/TV5MONDE_logo.png/320px-TV5MONDE_logo.png"),
-                SimpleChannel("orf-2", SpannedString("ORF 2"), "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/ORF2_logo_n.svg/320px-ORF2_logo_n.svg.png"),
-                SimpleChannel("tvp-1", SpannedString("TVP 1"), "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tvp1.png"),
+                SimpleChannel("SUN-1", SpannedString("SUN 1"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-2", SpannedString("SUN 2"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-3", SpannedString("SUN 3"), "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/200px-BBC_News_2019.svg.png"),
+                SimpleChannel("SUN-4", SpannedString("SUN 4"), "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/ZDF_logo.svg/200px-ZDF_logo.svg.png"),
+                SimpleChannel("SUN-5", SpannedString("SUN 5"), "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Jednotka.svg/255px-Jednotka.svg.png"),
+                SimpleChannel("SUN-6", SpannedString("SUN 6"), "https://upload.wikimedia.org/wikipedia/commons/2/2f/TV_Nova_logo_2017.png"),
+                SimpleChannel("SUN-7", SpannedString("SUN 7"), "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/TV5MONDE_logo.png/320px-TV5MONDE_logo.png"),
+                SimpleChannel("SUN-8", SpannedString("SUN 8"), "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/ORF2_logo_n.svg/320px-ORF2_logo_n.svg.png"),
+                SimpleChannel("SUN-9", SpannedString("SUN 9"), "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tvp1.png"),
 
-                SimpleChannel("npo-10", SpannedString("NPO 10"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-11", SpannedString("NPO 11"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-12", SpannedString("NPO 12"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-13", SpannedString("NPO 13"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-14", SpannedString("NPO 14"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-15", SpannedString("NPO 15"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-16", SpannedString("NPO 16"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-17", SpannedString("NPO 17"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-18", SpannedString("NPO 18"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-19", SpannedString("NPO 19"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-10", SpannedString("SUN 10"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-11", SpannedString("SUN 11"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-12", SpannedString("SUN 12"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-13", SpannedString("SUN 13"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-14", SpannedString("SUN 14"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-15", SpannedString("SUN 15"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-16", SpannedString("SUN 16"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-17", SpannedString("SUN 17"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-18", SpannedString("SUN 18"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-19", SpannedString("SUN 19"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
 
-                SimpleChannel("npo-20", SpannedString("NPO 20"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-21", SpannedString("NPO 21"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-22", SpannedString("NPO 22"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-23", SpannedString("NPO 23"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-24", SpannedString("NPO 24"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-25", SpannedString("NPO 25"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-26", SpannedString("NPO 26"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-27", SpannedString("NPO 27"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
-                SimpleChannel("npo-28", SpannedString("NPO 28"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
-                SimpleChannel("npo-29", SpannedString("NPO 29"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-20", SpannedString("SUN 20"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-21", SpannedString("SUN 21"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-22", SpannedString("SUN 22"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-23", SpannedString("SUN 23"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-24", SpannedString("SUN 24"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-25", SpannedString("SUN 25"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-26", SpannedString("SUN 26"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-27", SpannedString("SUN 27"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-28", SpannedString("SUN 28"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-29", SpannedString("SUN 29"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+
+                SimpleChannel("SUN-30", SpannedString("SUN 30"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-31", SpannedString("SUN 31"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-32", SpannedString("SUN 32"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-33", SpannedString("SUN 33"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-34", SpannedString("SUN 34"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-35", SpannedString("SUN 35"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-36", SpannedString("SUN 36"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-37", SpannedString("SUN 37"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png"),
+                SimpleChannel("SUN-38", SpannedString("SUN 38"), "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/320px-NPO_1_logo_2014.svg.png"),
+                SimpleChannel("SUN-39", SpannedString("SUN 39"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png")
             )
 
             val showNames = listOf("News", "Sherlock Holmes", "It's Always Sunny In Philadelphia", "Second World War Documentary", "World Cup Final Replay", "Game of Thrones",
