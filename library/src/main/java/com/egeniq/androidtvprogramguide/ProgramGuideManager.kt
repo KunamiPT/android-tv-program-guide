@@ -37,8 +37,10 @@ class ProgramGuideManager<T> {
         internal val ENTRY_MIN_DURATION = TimeUnit.MINUTES.toMillis(2) // 2 min
         private val MAX_UNACCOUNTED_TIME_BEFORE_GAP = TimeUnit.MINUTES.toMillis(15) // 15 min
 
-        private const val DAY_STARTS_AT_HOUR = 5
-        private const val DAY_ENDS_NEXT_DAY_AT_HOUR = 6
+//        private const val DAY_STARTS_AT_HOUR = 5
+//        private const val DAY_ENDS_NEXT_DAY_AT_HOUR = 6
+        private const val DAY_STARTS_YESTERDAY_AT_HOUR = 5
+        private const val DAY_ENDS_DAY_AFTER_TOMORROW_AT_HOUR = 6
 
         private val TAG : String = ProgramGuideManager::class.java.name
     }
@@ -113,8 +115,10 @@ class ProgramGuideManager<T> {
                     entries.add(ProgramGuideSchedule.createGap(startUtcMillis, endUtcMillis))
                 } else {
                     // Cut off items which don't belong in the desired timeframe
-                    val timelineStartsAt = selectedDate.atStartOfDay(timeZone).withHour(DAY_STARTS_AT_HOUR)
-                    val timelineEndsAt = timelineStartsAt.plusDays(1).withHour(DAY_ENDS_NEXT_DAY_AT_HOUR)
+//                    val timelineStartsAt = selectedDate.atStartOfDay(timeZone).withHour(DAY_STARTS_AT_HOUR)
+//                    val timelineEndsAt = timelineStartsAt.plusDays(1).withHour(DAY_ENDS_NEXT_DAY_AT_HOUR)
+                    val timelineStartsAt = selectedDate.atStartOfDay(timeZone).minusDays(7).withHour(DAY_STARTS_YESTERDAY_AT_HOUR)
+                    val timelineEndsAt = timelineStartsAt.plusDays(15).withHour(DAY_ENDS_DAY_AFTER_TOMORROW_AT_HOUR)
 
                     val timelineStartsAtMillis = timelineStartsAt.toEpochSecond() * 1_000
                     val timelineEndsAtMillis = timelineEndsAt.toEpochSecond() * 1_000
