@@ -164,8 +164,8 @@ class EpgFragment : ProgramGuideFragment<EpgFragment.SimpleProgram>() {
                 SimpleChannel("SUN-39", SpannedString("SUN 39"), "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/275px-NPO_2_logo_2014.svg.png")
             )
 
-            val showNames = listOf("News", "Sherlock Holmes", "It's Always Sunny In Philadelphia", "Second World War Documentary", "World Cup Final Replay", "Game of Thrones",
-                "NFL Sunday Night Football", "NCIS", "Seinfeld", "ER", "Who Wants To Be A Millionaire", "Our Planet", "Friends", "House of Cards")
+            val showNames = listOf("Sport Passion", "Sherlock Holmes", "Kitchen Talk", "Overhaulin", "World Cup", "Game of Thrones",
+                "Euro 2020", "The Autobahn A2", "News und Meteo", "Découverte", "Deadliest Catch", "Our Planet", "Friends", "Sweet Tooth")
 
             val channelMap = mutableMapOf<String, List<ProgramGuideSchedule<SimpleProgram>>>()
 
